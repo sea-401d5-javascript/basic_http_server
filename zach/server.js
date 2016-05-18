@@ -1,7 +1,6 @@
 'use strict';
 
 const http = require('http');
-const users = [];
 
 http.createServer((req, res) => {
   if(req.url === '/time' && req.method === 'GET'){
@@ -22,7 +21,6 @@ http.createServer((req, res) => {
     req.on('data', function(chunk) {
       let newUser = JSON.parse(chunk.toString()).newUser;
       res.write("Hello there, " + newUser + ".\n");
-      users.push(newUser);
       res.end();
       return;
     });
