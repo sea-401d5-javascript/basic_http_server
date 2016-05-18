@@ -18,9 +18,12 @@ http.createServer((req, res) => {
     let body = '';
     req.on('data', (data) => {
       body += data.toString();
-      res.writeHead(200, {'Content-Type': 'application/json'});
-      res.write('Name sent: ' + JSON.parse(body).name);
-      res.end();
+    req.on('end', () => {
+      res.writeHead(200, {'Content-Type': 'text/html'});
+      let name = JSON.parse(body).name;
+      res.write('Name sent: ' + name);
+      return res.end();
+      })
     });
   }
 

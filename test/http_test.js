@@ -34,12 +34,12 @@ describe('HTTP server tests', () => {
     request('localhost:3000')
       .post('/greet')
       .set('Content-Type', 'application/json')
-      .send({"name": "test"})
+      .send({"name":"test"})
       .end((err, res) => {
         expect(err).to.eql(null);
         expect(res).to.have.status(200);
-        expect(res).to.have.header('Content-Type', 'application/json');
-        expect(res).to.eql('Name sent: test');
+        expect(res).to.have.header('Content-Type', 'text/html');
+        expect(res.text).to.eql('Name sent: test');
         done();
       });
   });
