@@ -1,6 +1,6 @@
 const chai = require('chai');
 const chaiHTTP = require('chai-http');
-chai.use('chaihttp');
+chai.use(chaiHTTP);
 const expect = chai.expect;
 const request = chai.request;
 
