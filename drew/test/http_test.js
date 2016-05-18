@@ -19,6 +19,17 @@ describe('HTTP tests', () => {
       expect(res).to.have.status(200);
       expect(res.text).to.eql(currentTimeToString);
       done();
-    })
-  })
-})
+    });
+  });
+  it('should bring back a name', () => {
+    let greetName = req.url.substring(7);
+    let greetNameToString = greetName.toString();
+    request('localhost:3000')
+    .get('/greet/' + greetName)
+    .end((err,res) => {
+      expect(err).to.eql(null);
+      expect(res).to.have.status(200);
+      expect(res.text).to.eql(greetNameToString)
+    });
+  });
+});

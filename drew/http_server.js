@@ -10,10 +10,6 @@ http.createServer((req, res) => {
     return res.end();
   }
 
-//greet/name in url gives back name in string
-//  -need to find out how to write url
-//  -need to make it so any part after      //   greet is what the string is
-
 let greetName = req.url.substring(7);
 
   if(req.url === ('/greet/' + greetName) && req.method === 'GET') {
