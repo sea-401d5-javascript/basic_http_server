@@ -8,14 +8,14 @@ var server = module.exports = exports = http.createServer((req, res) => {
     res.end();
   }
 
-  else if (req.method === 'GET' && req.url.startsWith('/greet')) {
+  if (req.method === 'GET' && req.url.startsWith('/greet')) {
     res.writeHead(200, { 'Content-Type': 'text/plain' });
     var name = req.url.split('/')[2];
     res.write(greet(name));
-    res.end();
+    return res.end();
   }
 
-  else if (req.method === 'POST' && req.url === '/greet') {
+  if (req.method === 'POST' && req.url === '/greet') {
     var body = '';
     req.on('data', (chunk) => {
       body += chunk;
@@ -23,7 +23,7 @@ var server = module.exports = exports = http.createServer((req, res) => {
     req.on('end', () => {
       res.writeHead(200, { 'Content-Type': 'text/plain' });
       res.write(greet(JSON.parse(body).name));
-      res.end();
+      return res.end();
     });
   }
 
