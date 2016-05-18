@@ -18,6 +18,28 @@ describe('HTTP tests', () => {
       done();
     });
   });
+  it ('should test name', (done)=>{
+    request('localhost:3000')
+    .get('/greet/Dan')
+    .end((err, res) =>{
+      expect(err).to.eql(null);
+      expect(res).to.have.status(200);
+      expect(res.text).to.eql('What is up Dan\n')
+      done();
+    });
+  });
+
+  // it ('should test JSON', (done)=> {
+  //   request('localhost:3000')
+  //   .post('/greet')
+  //     .send('{"name": "Dan"}')
+  //     expect(err).to.eql(null);
+  //     expect()
+  //     done();
+  // });
+
+
+
   it ('should catch not found', (done)=>{
     request('localhost:3000')
     .get('/notthere')
