@@ -24,13 +24,13 @@ describe('http server', () => {
         done();
       })
   })
-  // it('should return a greeting to the name we entred with /greet in JSON format', (done) => {
-  //   chai.request('http://localhost:3000')
-  //     .post('/greet')
-  //     .field('newUser', 'Zach')
-  //     .end((err, res) => {
-  //       expect(res.text).to.eql('Hello there, Zach.\n');
-  //       done();
-  //     })
-  // })
+  it('should return a greeting to the name we entred with /greet in JSON format', (done) => {
+    chai.request('http://localhost:3000')
+      .post('/greet')
+      .send({newUser: 'Zach'})
+      .end((err, res) => {
+        expect(res.text).to.eql('Hello there, Zach.\n');
+        done();
+      })
+  })
 })
