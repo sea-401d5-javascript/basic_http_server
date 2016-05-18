@@ -6,7 +6,7 @@ const request = chai.request;
 require(__dirname + '/../server.js');
 
 describe('HTTP tests', ()=>{
-  it('should greet on get greet', (done)=>{
+  it('should greet by name based on url', (done)=>{
     request('localhost:3000')
       .get('/greet/me')
       .end((err, res)=>{
@@ -30,17 +30,18 @@ describe('HTTP tests', ()=>{
       .get('/time')
       .end((err, res)=>{
         expect(err).to.eql(null);
-        expect(res.text).to.eql(new Date().toString() + '\n')
+        expect(res.text.slice(0,20)).to.eql(new Date().toString().slice(0,20))
         done();
       })
   })
-  it('should grab the name from a json object', (done)=>{
-    request('localhost:3000')
+  it('should grab the name from a json object', ()=>{
+    request('localhost:3000/greet')
       .post('/greet')
-        .field('{"name": "person"}')
-      .end((err, req)=>{
-        expect(req.data).to.eql('{"name": "person"}')
-        done();
+        .send('{"name": "person"}')
+      .end((err, res)=>{
+        //expect(err).to.be.null;
+        expect(res).to.have.status(200);
+        expect(JSON.parse(res.body.name)).to.eql('person');
       })
   })
 })

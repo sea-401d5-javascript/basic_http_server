@@ -16,16 +16,17 @@ http.createServer((req, res)=>{
   }
 
   if (paramArray[1] === 'greet' && req.method === 'POST'){
-    let name;
+    let name = '';
     req.on('data', (data)=>{
-      name = JSON.parse(data).name;
+      name += JSON.parse(data).name;
     })
     req.on('end', ()=>{
-      res.writeHead(200, {'Content-Type': 'application/json'});
       console.log(name);
-      return res.end();
+      res.end();
     })
+    res.writeHead(200, {'Content-Type': 'application/json'});
     res.write('neat.\n');
+    return
   }
 
   res.writeHead(404, {
