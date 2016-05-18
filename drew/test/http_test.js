@@ -17,19 +17,38 @@ describe('HTTP tests', () => {
     .end((err, res) => {
       expect(err).to.eql(null);
       expect(res).to.have.status(200);
-      expect(res.text).to.eql(currentTimeToString);
+      expect(currentTimeToString - (res.text)).to.be.below(1000);
       done();
     });
   });
   it('should bring back a name', () => {
-    let greetName = req.url.substring(7);
-    let greetNameToString = greetName.toString();
+    let greetName = 'BOB';
     request('localhost:3000')
     .get('/greet/' + greetName)
-    .end((err,res) => {
+    .end((err, res) => {
       expect(err).to.eql(null);
       expect(res).to.have.status(200);
-      expect(res.text).to.eql(greetNameToString)
+      expect(res.text).to.eql('BOB');
+      done();
+    });
+  });
+  it('should catch not found', (done) => {
+    request('localhost:3000')
+    .get('/notthere')
+    .end((err, res) => {
+      expect(res).to.have.status(404);
+      expect(res.text).to.eql('NOT FOUND');
+      done();
+    });
+  });
+  it('should post correctly', () => {
+    request('localhost:3000')
+    .get('/greet')
+    .end((err, res) => {
+      expect(err).to.eql(null);
+      expect(res).to.have.status(200);
+      expect(res.text).tp
+      done();
     });
   });
 });
