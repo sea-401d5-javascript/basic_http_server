@@ -11,28 +11,32 @@ http.createServer((req, res) => {
     return res.end();
   }
 
-  let user = req.url.substring(7);
-
-  if (req.url === '/greet/' + user && req.method === 'GET'){
-    let userString = user.toString();
-    console.log(userString);
-    res.write('Hello ' + userString + '\n');
+  if (req.url === '/greet/aliza' && req.method === 'GET'){
+    let user = req.url.substring(7);
+    res.write('Hello ' + user + '\n');
     return res.end();
   }
 
-  //In command line: curl localhost:3000 -X POST -d 'POST'
-  //curl localhost:3000/user
+  //curl localhost:3000/greet -X POST -d '{"name":"aliza"}'
 
-  if (req.method === 'POST') {
-    let newEntry = 'user';
-    database[newEntry] = true;
-    return res.end();
+  if (req.url === '/greet' && req.method === 'POST') {
+    var name = '';
+    req.on('data', (data) => {
+      name += data.toString();
+    });
+    req.on('end', () => {
+      var nameObj = JSON.parse(name);
+      res.write('Hello ' + nameObj.name);
+      return res.end();
+    })
   }
 
-  res.writeHead(404, {
-    'Content-Type': 'text/html'
-  })
-  res.write('NOT FOUND');
-  res.end();
+  else {
+    res.writeHead(404, {
+      'Content-Type': 'text/html'
+    })
+    res.write('NOT FOUND');
+    res.end();
+  }
 
 }).listen(3000);
