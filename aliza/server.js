@@ -11,8 +11,8 @@ http.createServer((req, res) => {
     return res.end();
   }
 
-  if (req.url === '/greet/aliza' && req.method === 'GET'){
-    let user = req.url.substring(7);
+  let user = req.url.substring(7);
+  if (req.url === '/greet/' + user && req.method === 'GET'){
     res.write('Hello ' + user + '\n');
     return res.end();
   }
@@ -26,7 +26,7 @@ http.createServer((req, res) => {
     });
     req.on('end', () => {
       var nameObj = JSON.parse(name);
-      res.write('Hello ' + nameObj.name);
+      res.write('Hello ' + nameObj.name + '\n');
       return res.end();
     })
   }

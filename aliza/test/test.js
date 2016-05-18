@@ -7,13 +7,13 @@ const request = chai.request;
 require('../server');
 
 describe('HTTP tests', () => {
-  it('should greet on get /HELLO', (done) => {
+  it('should give time on get /time', (done) => {
     request('localhost:3000')
-      .get('/HELLO')
+      .get('/time')
       .end((err, res) => {
         expect(err).to.eql(null);
         expect(res).to.have.status(200);
-        expect(res.text).to.eql('HI\n');
+        expect(res.write).to.eql(new Date() + '\n');
         done();
       });
   });
