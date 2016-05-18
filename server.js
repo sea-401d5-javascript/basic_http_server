@@ -6,13 +6,11 @@ http.createServer((req, res)=>{
   var paramArray = req.url.split('/');
 
   if (paramArray[1] === 'time'){
-    console.log(paramArray)
     res.write(new Date().toString() + '\n');
     return res.end();
   };
 
   if (paramArray[1] === 'greet' && paramArray[2]){
-    console.log(paramArray);
     res.write(`Wuddup, ${paramArray[2]}\n`);
     return res.end();
   }

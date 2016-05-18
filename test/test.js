@@ -37,9 +37,9 @@ describe('HTTP tests', ()=>{
   it('should grab the name from a json object', (done)=>{
     request('localhost:3000')
       .post('/greet')
-      .end((err, res)=>{
-        expect(err).to.eql(null);
-        expect(res.text).to.eql('neat.\n')
+        .field('{"name": "person"}')
+      .end((err, req)=>{
+        expect(req.data).to.eql('{"name": "person"}')
         done();
       })
   })
