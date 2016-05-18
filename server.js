@@ -1,28 +1,24 @@
 'use strict';
 
 const http = require('http');
-const database = {};
+
 
 http.createServer((req, res) => {
-  if (req.url === '/HELLO' && req.method === 'GET') {
-    res.write('HI\n');
+  if (req.url === '/time') {
+    let date = new Date();
+    res.write('Date: ' + date.toString() + '\n');
     return res.end();
   }
 
-  if (req.url === '/user' && req.method === 'GET') {
-    let users = Object.keys(database).toString() + '\n';
-    res.write(users);
+  if (req.method === 'GET' && req.url.indexOf('/greet/name') !== -1) {
+    let name =
+    res.write('What is up ' + 'random name' + '\n');
     return res.end();
   }
 
-  if (req.method === 'POST') {
-    let newEntry = 'user' + Date.now;
-    database[newEntry] = true;
-    return res.end();
-  }
-    res.writeHead(404, {
-      'Content-Type': 'text/html'
-    })
+
+
+    res.writeHead(404, {'Content-Type': 'text/html'});
     res.write('NOT FOUND');
     res.end();
 

@@ -1,3 +1,5 @@
+'use strict'
+
 const chai = require('chai');
 const chaiHTTP = require('chai-http');
 const expect = chai.expect;
@@ -6,15 +8,13 @@ const request = chai.request;
 require('../server');
 
 describe('HTTP tests', () => {
-  it ('should greet on get /HEllO', (done) =>{
+  it ('should get time from /time', (done) =>{
     request('localhost:3000')
-    .get('/HELLO')
+    .get('/time')
     .end((err, res)=>{
-
-      console.log(res.text);
       expect(err).to.eql(null);
       expect(res).to.have.status(200);
-      expect(res.text).to.eql('HI\n');
+      expect().to.eql()
       done();
     });
   });
