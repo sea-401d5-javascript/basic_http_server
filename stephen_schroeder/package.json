@@ -1,0 +1,26 @@
+{
+  "name": "basic_http_server",
+  "version": "0.1.0",
+  "description": "server in vanilla node",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/schrode50/basic_http_server.git"
+  },
+  "author": "stephen schroeder",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/schrode50/basic_http_server/issues"
+  },
+  "homepage": "https://github.com/schrode50/basic_http_server#readme",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-http": "^2.0.1",
+    "gulp": "^3.9.1",
+    "gulp-eslint": "^2.0.0",
+    "gulp-mocha": "^2.2.0"
+  }
+}
