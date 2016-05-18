@@ -24,8 +24,8 @@ http.createServer((req, res) => {
     return res.end();
   }
 
-  res.write('NOT FOUND');
   res.writeHead(404, {'Content-Type': 'text/html'});
+  res.write('NOT FOUND');
   res.end();
 }).listen(3000, () => {
   console.log('listening');
