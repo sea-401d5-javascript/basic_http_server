@@ -15,23 +15,22 @@ http.createServer((req, res) => {
   };
 
   if(req.url === ('/greet') && req.method === 'POST') {
-    //var userName;
+    var users = ''
     req.on('data', (data) => {
-      res.writeHead(200, { 'Content-Type': 'application/json'})
+      users += data.toString();
 
     })
     req.on('end', () => {
-      //console.log(userName);
+      var usersObject = JSON.parse(users);
+      res.write('Hello ' + usersObject.name + '\n');
+      return res.end();
     })
-
-    res.write('working');
-    return res.end();
   }
-
+  else {
   res.writeHead(404, {
     'Content-Type': 'text/html'
   })
   res.write('NOT FOUND' + '\n');
   return res.end();
-
+}
 }).listen(3000);
