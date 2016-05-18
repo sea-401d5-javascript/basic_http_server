@@ -30,13 +30,16 @@ describe('HTTP server tests', () => {
         done();
       });
   });
-  it('should respond to a POST request to /greet/* by turning the single-word string at the end of the path into JSON', (done) => {
+  it('should respond to a POST request to /greet by recognizing the JSON object and writing it back to the server', (done) => {
     request('localhost:3000')
-      .post('/greet/test')
+      .post('/greet')
+      .set('Content-Type', 'application/json')
+      .send({"name": "test"})
       .end((err, res) => {
         expect(err).to.eql(null);
         expect(res).to.have.status(200);
-        expect(res).to.have.header('name', '"test"');
+        expect(res).to.have.header('Content-Type', 'application/json');
+        expect(res).to.eql('Name sent: test');
         done();
       });
   });

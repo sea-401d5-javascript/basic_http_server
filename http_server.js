@@ -1,6 +1,5 @@
 'use strict';
 const http = require('http');
-const names = [];
 
 http.createServer((req, res) => {
   if (req.url === '/time') {
@@ -15,18 +14,21 @@ http.createServer((req, res) => {
     return res.end();
   }
 
-  if (req.method === 'POST' && req.url.indexOf('/greet/') !== -1) {
-    let JSONname = JSON.stringify(req.url.split('/').pop());
-    names.push(JSONname);
-    res.writeHead(200, {name: JSONname});
-    res.write('Successfully saved as JSON');
-    console.log(names);
-    return res.end();
+  if (req.method === 'POST' && req.url === '/greet') {
+    let body = '';
+    req.on('data', (data) => {
+      body += data.toString();
+      res.writeHead(200, {'Content-Type': 'application/json'});
+      res.write('Name sent: ' + JSON.parse(body).name);
+      res.end();
+    });
   }
 
-  res.writeHead(404, {'Content-Type': 'text/html'});
-  res.write('NOT FOUND');
-  res.end();
+ else {
+   res.writeHead(404, {'Content-Type': 'text/html'});
+   res.write('NOT FOUND');
+   res.end();
+ }
 }).listen(3000, () => {
   console.log('listening');
 });
