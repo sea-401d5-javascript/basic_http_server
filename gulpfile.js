@@ -51,12 +51,12 @@ gulp.task('linter' , () => {
 });
 
 gulp.task('tests', () => {
-  return gulp.src('./test/http-test.js', {read: false})
+  return gulp.src('./test/http_test.js', {read: false})
     .pipe(mocha({reporter: 'spec'}));
 });
 
 gulp.task('watch', () => {
-  gulp.watch('./test/chat-test.js', ['linter', 'tests']);
+  gulp.watch('./test/http_test.js', ['linter', 'tests']);
   gulp.watch('./**/*.js', ['linter']);
 });
 
