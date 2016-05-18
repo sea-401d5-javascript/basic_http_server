@@ -6,7 +6,7 @@ const database = {};
 
 http.createServer((req, res) => {
   if (req.url === '/time' && req.method === 'GET'){
-    let time = Date.now();
+    let time = new Date();
     res.write(time + '\n');
     return res.end();
   }
