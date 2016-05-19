@@ -25,13 +25,12 @@ describe('HTTP tests', ()=>{
         done();
       })
   })
-  it('should give me the current date/time', (done)=>{
+  it('should give me the current date/time', ()=>{
     request('localhost:3000')
       .get('/time')
       .end((err, res)=>{
         expect(err).to.eql(null);
-        expect(res.text.slice(0,20)).to.eql(new Date().toString().slice(0,20))
-        done();
+        expect(res.text.slice(0,20)).to.eql(new Date().toString().slice(0,20));
       })
   })
   it('should grab the name from a json object', ()=>{
