@@ -14,23 +14,33 @@ http.createServer((req, res) => {
 
   if(req.url === ('/greet/' + greetName) && req.method === 'GET') {
     let greetNameToString = greetName.toString();
-    res.write(greetNameToString);
+    res.write('Hello ' + greetNameToString + '\n');
     return res.end();
   }
 
   if (req.url === ('/greet') && req.method === 'POST') {
+    var name = '';
     req.on('data', (data) => {
-      console.log(data.toString());
+      name += data.toString();
+      // console.log(data.toString());
+
+    req.on('end', () => {
+      var nameObj = JSON.parse(name);
+      res.write('Hello ' + nameObj.name + '\n');
+      // res.writeHead(200, {'Content-Type': 'application/JSON'});
+      // res.write('Hi');
+      res.end();
+      });
     });
-    res.writeHead(200, {'Content-Type': 'application/JSON'});
-    res.write('Hi');
-    return res.end();
-  }
+    return;
+
+  };
+
 
   res.writeHead(404, {
     'Content-Type': 'text/html'
   });
-  res.write('NOT FOUND');
+  res.write('NOT FOUND\n');
 
   res.end();
 
