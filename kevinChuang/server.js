@@ -2,28 +2,29 @@
 /*jshint esversion:6*/
 
 const http = require('http');
-const async = require('async');
 
 http.createServer((req, res) => {
   if(req.url === '/time' && req.method ==='GET'){
-    res.write('The time now is ' + new Date().toUTCString());
+    var date = new Date();
+    res.write('The time now is ' + date.getHours() + ':' + date.getMinutes());
     return res.end();
   }
-  var name = req.url.substring(7);
+
+  if(req.url.substring(0,7) === ('/greet/') && req.method === 'GET') {
+    res.write('Hello ' + req.url.substring(7));
+    return res.end();
+  }
 
   if(req.url === '/greet' && req.method ==='POST'){
-    //async.parallel([],callback())
+    var postData;
     req.on('data',(data)=> {
-      console.log('Hi my name is ' + JSON.parse(data).name);
-      // res.write('Hello ' + JSON.parse(data).name);
+      postData = data.toString();
     });
-    // res.writeHead(200, {'Content-Type': 'application/JSON'});
-    // res.write('got a 200!');
-    return res.end();
-  }
-
-  if(req.url === ('/greet/'+ name) && req.method === 'GET') {
-    res.write('Hello ' + name);
+    req.on('end', ()=>{
+      console.log(postData);
+      console.log('Hi my name is ' + JSON.parse(postData).name);
+      // res.write('Hello ' + JSON.parse(postData).name);
+    });
     return res.end();
   }
 
@@ -31,6 +32,8 @@ http.createServer((req, res) => {
     'Content-Type': 'text/html'
   });
   res.write('Not Found\n');
-  //res.status(404);
+  res.statusHead = 404;
   res.end();
-}).listen(3000);
+}).listen(3000,()=> {
+  console.log('Listening on port 3000');
+});
