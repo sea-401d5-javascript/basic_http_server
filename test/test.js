@@ -30,7 +30,7 @@ describe('HTTP tests', ()=>{
       .get('/time')
       .end((err, res)=>{
         expect(err).to.eql(null);
-        expect(res.text.slice(0,20)).to.eql(new Date().toString().slice(0,20));
+        expect(res.text.slice(0,20)).to.eql(new Date().toString().slice(0,20))
       })
   })
   it('should grab the name from a json object', ()=>{
@@ -38,7 +38,6 @@ describe('HTTP tests', ()=>{
       .post('/greet')
         .send('{"name": "person"}')
       .end((err, res)=>{
-        //expect(err).to.be.null;
         expect(res).to.have.status(200);
         expect(JSON.parse(res.body.name)).to.eql('person');
       })
